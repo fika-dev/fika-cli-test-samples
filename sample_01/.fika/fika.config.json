@@ -1,0 +1,23 @@
+{
+    "notionWorkspace": "NOT_CONNECTED",
+    "addOns": [
+        {
+            "name": "Repo.Analyzer",
+            "type": 0,
+            "objectType": 0,
+            "databaseName": "Repository Database",
+            "additionalProperties": []
+        },
+        {
+            "name": "React.Component.Analyzer",
+            "type": 0,
+            "objectType": 1,
+            "databaseName": "React Component Database",
+            "additionalProperties": []
+        },
+        {
+            "name": "Typescript.Morpher",
+            "type": 1
+        }
+    ]
+}
