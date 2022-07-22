@@ -9,13 +9,14 @@ We will take as startup point sample _18 Hooks_.
 Install [Node.js and npm](https://nodejs.org/en/) if they are not already installed on your computer.
 
 > Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v`
-in a terminal/console window. Older versions may produce errors.
+> in a terminal/console window. Older versions may produce errors.
 
 ## Steps to build it
 
 - Copy the content of `18 Hooks` folder to an empty folder for the sample.
 
 - To ensure that we use exactly React version 16.7.0-alpha-0, let's set it like that in package.json:
+
 ```diff
 - "react": "^16.7.0-alpha.0",
 - "react-dom": "^16.7.0-alpha.0",
@@ -24,11 +25,13 @@ in a terminal/console window. Older versions may produce errors.
 ```
 
 - Install dependencies:
+
 ```
 npm install
 ```
 
 - Then, we need to install Material-UI:
+
 ```
 npm install @material-ui/core @material-ui/icons --save
 ```
@@ -40,6 +43,7 @@ npm install @material-ui/core @material-ui/icons --save
 - Also, we are going to apply styles using _withStyles_ function from Material-UI. Those styles will be defined in a new file, _loginForm.styles.ts_.
 
 _./src/components/login/loginForm.tsx_
+
 ```
 import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
@@ -55,7 +59,7 @@ const LoginFormInner: React.StatelessComponent<Props> = (props: Props) => {
 
   return (
     <div className={props.classes.container}>
-      <TextField 
+      <TextField
         label="name"
         margin="normal"
       />
@@ -73,7 +77,9 @@ const LoginFormInner: React.StatelessComponent<Props> = (props: Props) => {
 
 export const LoginForm = withStyles(styles)(LoginFormInner);
 ```
+
 _./src/components/login/loginForm.styles.ts_
+
 ```
 import { createStyles, Theme } from "@material-ui/core/styles";
 
@@ -92,6 +98,7 @@ export default (theme: Theme) => createStyles({
   }
 });
 ```
+
 - Now, let's create the page component, named _LoginPage_, that will contain our recently created _LoginForm_. We will include the form in a _Card_ from Material-UI. Also, we need to add a function to perform the action related to the _onLogin_ event. In this case, we are going to show the _About_ page, which was the home page in previous samples.
 
 _./src/components/login/loginPage.tsx_
@@ -133,11 +140,13 @@ export class Login extends React.Component<Props, {}> {
 - Also, we are going to add barrels for the login component:
 
 _./src/components/login/index.ts_
+
 ```
 export { Login } from './loginPage';
 ```
 
 _./src/components/index.ts_
+
 ```diff
 + export * from './login';
 ```
@@ -145,6 +154,7 @@ _./src/components/index.ts_
 - Now, let's change the home route in _AppRouter_ component. We have to replace the about page by the login page:
 
 _./src/router.tsx_
+
 ```diff
 - import { About, MembersPage, MemberPageContainer } from './components';
 + import { About, MembersPage, MemberPageContainer, Login } from './components';
@@ -173,6 +183,7 @@ export const AppRouter: React.StatelessComponent<{}> = () => {
 - Let's create the layout folder and the first layout for the login page, using Material-UI:
 
 _./src/layout/centeredView.styles.ts_
+
 ```
 import { createStyles, Theme } from "@material-ui/core/styles";
 
@@ -190,7 +201,9 @@ export default (theme: Theme) => createStyles({
   }
 });
 ```
+
 _./src/layout/centeredView.component.tsx_
+
 ```
 import * as React from 'react';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
@@ -211,6 +224,7 @@ export const CenteredView = withStyles(styles)(CenteredViewInner);
 - Now, let's do the same for _Members_ and _About_ pages. In this case, we are going to create a layout that includes the _Header_.
 
 _./src/layout/appView.styles.ts_
+
 ```
 import { createStyles, Theme } from "@material-ui/core/styles";
 
@@ -226,7 +240,9 @@ export default (theme: Theme) => createStyles({
   }
 });
 ```
+
 _./src/layout/appView.component.tsx_
+
 ```
 import * as React from 'react';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
@@ -249,6 +265,7 @@ export const AppView = withStyles(styles)(AppViewInner);
 - Let's add barrel:
 
 _./src/layout/index.ts_
+
 ```
 export { CenteredView } from './centeredView.component';
 export { AppView } from './appView.component';
@@ -309,6 +326,7 @@ _/.src/components/members/page.tsx_
 ```
 
 _./src/components/about.tsx_
+
 ```diff
 + import { AppView } from '../layout';
 
@@ -361,7 +379,7 @@ export const About: React.StatelessComponent<{}> = () => {
             </li>
           </ul>
         </div>
-      </div>     
+      </div>
 +   </AppView>
   );
 }
@@ -411,6 +429,7 @@ export class Login extends React.Component<Props, {}> {
 - Firstly, we are going to create a new _LoginEntity_ in our model.
 
 _./src/model/login.ts_
+
 ```
 export interface LoginEntity {
   login: string;
@@ -424,13 +443,15 @@ export const createEmptyLogin = (): LoginEntity => ({
 ```
 
 _./src/model/index.ts_
+
 ```diff
 + export * from './login';
 ```
 
-- Secondly, we will modify _LoginForm_ to add a property with the currently typed credentials, named _loginInfo_, and a function to update the credentials when the user types into the login or password text fields. We are going to use them in _value_ and _onChange_ properties of the _TextField_ component. 
+- Secondly, we will modify _LoginForm_ to add a property with the currently typed credentials, named _loginInfo_, and a function to update the credentials when the user types into the login or password text fields. We are going to use them in _value_ and _onChange_ properties of the _TextField_ component.
 
 _./src/components/login/loginForm.tsx_
+
 ```diff
 import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
@@ -453,7 +474,7 @@ const LoginFormInner: React.StatelessComponent<Props> = (props: Props) => {
 
   return (
     <div className={props.classes.container}>
-      <TextField 
+      <TextField
         label="name"
         margin="normal"
 +       value={props.loginInfo.login}
@@ -510,7 +531,7 @@ interface Props extends RouteComponentProps<any> {
   private onLogin = () => {
 +   if (isValidLogin(this.state.loginInfo)) {
       this.props.history.push('/about');
-+   } 
++   }
   }
 
 + private onUpdateLoginField = (name, value) => {
@@ -544,16 +565,18 @@ interface Props extends RouteComponentProps<any> {
 - The new function to check if a login is valid in our API:
 
 _./src/api/login/login.ts_
+
 ```
 import { LoginEntity } from "../../model";
 
-export const isValidLogin = (loginInfo: LoginEntity): boolean => 
+export const isValidLogin = (loginInfo: LoginEntity): boolean =>
   (loginInfo.login === 'admin' && loginInfo.password === 'test');
 ```
 
 - And its corresponding barrel:
 
 _./src/api/login/index.ts_
+
 ```
 export { isValidLogin } from './login';
 ```
@@ -561,6 +584,7 @@ export { isValidLogin } from './login';
 - Finally, let's add a notification to show the user when the credentials are incorrect. To do that, we are going to create a common notification component using Material-UI:
 
 _./src/common/components/notification/notification.tsx_
+
 ```
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
@@ -617,6 +641,7 @@ export const NotificationComponent = withStyles(styles)(NotificationComponentInn
 - Let's add the barrel:
 
 _./src/common/components/notification/index.ts_
+
 ```
 export { NotificationComponent } from './notification';
 ```
@@ -624,6 +649,7 @@ export { NotificationComponent } from './notification';
 - Now, let's use our recently created _NotificationComponent_ in _LoginPage_.
 
 _./src/components/login/loginPage.tsx_
+
 ```diff
 //...
 + import { NotificationComponent } from '../../common/components/notification';
@@ -700,6 +726,9 @@ export class Login extends React.Component<Props, State> {
 # About Lemoncode
 
 We are a team of long-term experienced freelance developers, established as a group in 2010.
-We specialize in Front End technologies and .NET. [Click here](http://lemoncode.net/services/en/#en-home) to get more info about us. 
+We specialize in Front End technologies and .NET. [Click here](http://lemoncode.net/services/en/#en-home) to get more info about us.
 
-
+a
+a
+a
+a
