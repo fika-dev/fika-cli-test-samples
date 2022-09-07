@@ -706,6 +706,7 @@ We specialize in Front End technologies and .NET. [Click here](http://lemoncode.
 
 
 
+<<<<<<< HEAD
 
 
 
@@ -718,3 +719,5 @@ We specialize in Front End technologies and .NET. [Click here](http://lemoncode.
 
 
 
+=======
+>>>>>>> 0ec205ee2963fe9598fcad910ba3cb9f37ba6e8e
